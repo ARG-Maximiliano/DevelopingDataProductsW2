@@ -1,0 +1,62 @@
+## 10 tourist attractions in Argentina
+
+Author: Maximiliano
+
+Date: 10/11/2020
+
+### Overview
+
+The objective of this project is to create a web page using R Markdown that features a map created with Leaflet. We will display in the map 10 tourist attractions in Argentina.
+
+### Creating the map
+
+Loading Leaflet library
+
+```{r, warning=FALSE, message=FALSE}
+library(leaflet)
+```
+
+Creating the data
+
+```{r}
+touristAttractionsArgCoordinates <- data.frame(
+        lat=c(-50,-32.653197,-25.686667,-42.8075,-49.271278,-41,-35.1476,
+              -29.8,-40.833333,-23.7469),
+        lng=c(-73.249444,-70.0112,-54.444722,-71.898889,-73.043222,-71.5,
+              -70.0828,-67.833333,-71.616667,-65.5035))
+touristAttractionsArgNames <- c("Los Glaciares National Park",
+                                "Aconcagua mountain","Iguazu Falls", 
+                                "Los Alerces National Park","Fitz Roy mountain"
+                                ,"Nahuel Huapi National Park", "Las Leñas",
+                                "Talampaya National Park",
+                                "Los Arrayanes National Park",
+                                "Cerro de los 7 colores")
+```
+
+Creating the icon
+
+```{r}
+ArgIcon <- makeIcon(
+        iconUrl = "https://www.casarosada.gob.ar/images/1024px-Escarapela_argentina.svg.png",
+        iconWidth = 30, iconHeight = 30, iconAnchorX = 15, iconAnchorY = 15)
+```
+
+Creating the map
+
+```{r}
+touristAttractionsArgMap <- touristAttractionsArgCoordinates %>%
+        leaflet() %>% addTiles() %>% 
+        addMarkers(popup = touristAttractionsArgNames,
+                   clusterOptions = markerClusterOptions(),
+                   icon = ArgIcon)
+```        
+        
+Displaying the map
+
+**Click the icons to see the names**
+        
+```{r}      
+touristAttractionsArgMap    
+```
+    
+        
